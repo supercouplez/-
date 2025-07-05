@@ -86,3 +86,5 @@ forward_pass:
     fstp dword [output + rcx*4]
     inc rcx
     jmp .layer2_loop
+.done:
+ret
