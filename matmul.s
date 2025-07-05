@@ -17,6 +17,8 @@ layer2_weights:
     dd 0.9, 1.0, 1.1, 1.2
     dd 1.3, 1.4, 1.5, 1.6
 
+msg_rick: db "rick", 10  
+
 section .text
 forward_pass:
     finit
@@ -35,12 +37,12 @@ forward_pass:
     fld dword [input + rdx*4]
 
     mov rax, rcx
-    shl rax, 4        ; rcx * 16
+    shl rax, 4
 
     mov rbx, rdx
-    shl rbx, 2        ; rdx * 4
+    shl rbx, 2
 
-    add rax, rbx      ; rax = rcx*16 + rdx*4
+    add rax, rbx      
     fld dword [layer1_weights + rax]
 
     fmul
@@ -89,26 +91,7 @@ forward_pass:
 .print:
     mov rax, 1
     mov rdi, 1
-    mov rsi, msg_rick
-    mov rdx, 5 "rick\n"
+    mov rsi, msg_rick     
+    mov rdx, 5            
     syscall
-    ret
-.print_loop:
-    cmp rcx, 4
-    jge .done
-
-    fld dword [output + rcx*4]
-    sub rsp, 32
-    fistp qword [rsp]
-    mov rsi, rsp
-    mov rdi, 1
-    mov rdx, 4
-    mov rax, 1
-    syscall
-    add rsp, 32
-
-    inc rcx
-    jmp .print_loop
-
-.done:
     ret
