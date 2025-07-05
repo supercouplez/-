@@ -1,4 +1,4 @@
-global lembut
+global softmax.pass
 extern output
 
 section .data
