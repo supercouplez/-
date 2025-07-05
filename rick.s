@@ -33,4 +33,9 @@ ascii_to_input:
     mov rdx, 4         ; 1 float (4 byte)
     syscall
 
+mov rax, 1
+mov rdi, 1
+lea rsi, [input]
+mov rdx, 16
+syscall
     ret
