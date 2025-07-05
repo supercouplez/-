@@ -1,5 +1,5 @@
-extern output
 global softmax_pass
+extern output
 
 section .data
 softmax: times 4 dd 0.0
