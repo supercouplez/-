@@ -1,3 +1,4 @@
+extern output
 global softmax_pass
 
 section .data
