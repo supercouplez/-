@@ -1,4 +1,5 @@
 global _start
+extern forward_pass        
 
 section .text
 _start:
