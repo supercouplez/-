@@ -87,7 +87,12 @@ forward_pass:
     jmp .layer2_loop
 
 .print:
-    mov rcx, 0
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, msg_rick
+    mov rdx, 5 "rick\n"
+    syscall
+    ret
 .print_loop:
     cmp rcx, 4
     jge .done
