@@ -34,7 +34,13 @@ forward_pass:
 
     fld dword [input + rdx*4]
 
-    lea rax, [rcx*16 + rdx*4]
+    mov rax, rcx
+    shl rax, 4        ; rcx * 16
+
+    mov rbx, rdx
+    shl rbx, 2        ; rdx * 4
+
+    add rax, rbx      ; rax = rcx*16 + rdx*4
     fld dword [layer1_weights + rax]
 
     fmul
@@ -60,8 +66,16 @@ forward_pass:
     jge .store_out
 
     fld dword [hidden + rdx*4]
-    lea rax, [rcx*16 + rdx*4]
+
+    mov rax, rcx
+    shl rax, 4
+
+    mov rbx, rdx
+    shl rbx, 2
+
+    add rax, rbx
     fld dword [layer2_weights + rax]
+
     fmul
     faddp st1, st0
     inc rdx
