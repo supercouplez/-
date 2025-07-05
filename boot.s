@@ -6,5 +6,5 @@ _start:
     call forward_pass
 
     mov rax, 60         
-    xor rdi, rdi
+    xor rdi, rdi        
     syscall
