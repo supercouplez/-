@@ -26,4 +26,11 @@ ascii_to_input:
     jmp .convert_loop
 
 .done:
+    ; print input[0]
+    mov rax, 1         ; syscall write
+    mov rdi, 1         ; stdout
+    lea rsi, [input]   ; pointer ke input[0]
+    mov rdx, 4         ; 1 float (4 byte)
+    syscall
+
     ret
