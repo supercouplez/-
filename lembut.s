@@ -75,6 +75,12 @@ softmax_pass:
     lea rsi, [output]
     mov rdx, 16
     syscall
+; print softmax vector
+    mov rax, 1
+    mov rdi, 1
+    lea rsi, [softmax]
+    mov rdx, 16
+    syscall
 
 .print_token:
     mov rax, 1
