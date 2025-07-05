@@ -58,7 +58,7 @@ forward_pass:
     xor rcx, rcx         
 .layer2_loop:
     cmp rcx, 4
-    jge .print
+    jge .done
 
     xor rdx, rdx
     fldz
