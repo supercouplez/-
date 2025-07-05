@@ -1,5 +1,6 @@
 global forward_pass
 global output
+global input
 
 section .data
 input:     dd 2.0, 1.0, 0.0, 3.0
