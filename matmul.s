@@ -18,8 +18,6 @@ layer2_weights:
     dd 0.9, 1.0, 1.1, 1.2
     dd 1.3, 1.4, 1.5, 1.6
 
-msg_rick: db "rick", 10  
-
 section .text
 forward_pass:
     finit
@@ -88,11 +86,3 @@ forward_pass:
     fstp dword [output + rcx*4]
     inc rcx
     jmp .layer2_loop
-
-.print:
-    mov rax, 1
-    mov rdi, 1
-    mov rsi, msg_rick     
-    mov rdx, 5            
-    syscall
-    ret
