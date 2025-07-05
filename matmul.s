@@ -6,16 +6,16 @@ hidden:    times 4 dd 0.0
 output:    times 4 dd 0.0
 
 layer1_weights:
-    dd 0.1, 0.2, 0.3, 0.4,
-       0.5, 0.6, 0.7, 0.8,
-       0.9, 1.0, 1.1, 1.2,
-       1.3, 1.4, 1.5, 1.6
+    dd 0.1, 0.2, 0.3, 0.4
+    dd 0.5, 0.6, 0.7, 0.8
+    dd 0.9, 1.0, 1.1, 1.2
+    dd 1.3, 1.4, 1.5, 1.6
 
 layer2_weights:
-    dd 0.1, 0.2, 0.3, 0.4,
-       0.5, 0.6, 0.7, 0.8,
-       0.9, 1.0, 1.1, 1.2,
-       1.3, 1.4, 1.5, 1.6
+    dd 0.1, 0.2, 0.3, 0.4
+    dd 0.5, 0.6, 0.7, 0.8
+    dd 0.9, 1.0, 1.1, 1.2
+    dd 1.3, 1.4, 1.5, 1.6
 
 section .text
 forward_pass:
@@ -33,8 +33,12 @@ forward_pass:
     jge .store_hidden
 
     fld dword [input + rdx*4]
-    fld dword [layer1_weights + rcx*16 + rdx*4] 
-    fmul                                     
+
+    ; FIX dua register: gunakan LEA
+    lea rax, [rcx*16 + rdx*4]
+    fld dword [layer1_weights + rax]
+
+    fmul
     faddp st1, st0                         
     inc rdx
     jmp .inner1
@@ -57,7 +61,8 @@ forward_pass:
     jge .store_out
 
     fld dword [hidden + rdx*4]
-    fld dword [layer2_weights + rcx*16 + rdx*4]
+    lea rax, [rcx*16 + rdx*4]
+    fld dword [layer2_weights + rax]
     fmul
     faddp st1, st0
     inc rdx
@@ -72,20 +77,3 @@ forward_pass:
     mov rcx, 0
 .print_loop:
     cmp rcx, 4
-    jge .done
-
-    fld dword [output + rcx*4]
-    sub rsp, 32
-    fistp qword [rsp]
-    mov rsi, rsp
-    mov rdi, 1
-    mov rdx, 4
-    mov rax, 1
-    syscall
-    add rsp, 32
-
-    inc rcx
-    jmp .print_loop
-
-.done:
-    ret
