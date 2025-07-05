@@ -16,14 +16,14 @@ softmax_pass:
     cmp rcx, 4
     jge .sum_exp
 
-    fld dword [output + rcx*4]  
-    call exp_approx             
-    fst dword [exp_tmp + rcx*4] 
+    fld dword [output + rcx*4]
+    call exp_approx
+    fst dword [exp_tmp + rcx*4]
     inc rcx
     jmp .calc_exp_loop
 
 .sum_exp:
-    fldz                        
+    fldz
     mov rcx, 0
 .sum_loop:
     cmp rcx, 4
@@ -34,7 +34,7 @@ softmax_pass:
     jmp .sum_loop
 
 .norm_softmax:
-    fst dword [sum_exp]         
+    fst dword [sum_exp]
     mov rcx, 0
 .norm_loop:
     cmp rcx, 4
@@ -50,29 +50,37 @@ softmax_pass:
 .argmax:
     xor rcx, rcx
     xor rbx, rbx
-    fld dword [softmax] 
+    fld dword [softmax]
 
 .argmax_loop:
     inc rcx
     cmp rcx, 4
-    jge .print_token
+    jge .debug_output
 
     fld dword [softmax + rcx*4]
-    fcomip st0, st1     
+    fcomip st0, st1
     ja .update_max
-    fstp st0            
+    fstp st0
     jmp .argmax_loop
 
 .update_max:
-    fstp st1            
-    mov rbx, rcx        
+    fstp st1
+    mov rbx, rcx
     jmp .argmax_loop
 
+.debug_output:
+    
+    mov rax, 1
+    mov rdi, 1
+    lea rsi, [output]
+    mov rdx, 16
+    syscall
+
 .print_token:
-    mov rax, 1          
+    mov rax, 1
     mov rdi, 1
     mov rsi, tokens
-    add rsi, rbx        
+    add rsi, rbx
     mov rdx, 1
     syscall
     ret
