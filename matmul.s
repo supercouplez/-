@@ -69,8 +69,12 @@ forward_pass:
     jmp .layer2_loop
 
 .print:
+    mov rcx, 0
+.print_loop:
+    cmp rcx, 4
+    jge .done
 
-    fld dword [output]
+    fld dword [output + rcx*4]
     sub rsp, 32
     fistp qword [rsp]
     mov rsi, rsp
@@ -80,4 +84,8 @@ forward_pass:
     syscall
     add rsp, 32
 
+    inc rcx
+    jmp .print_loop
+
+.done:
     ret
