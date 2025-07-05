@@ -1,4 +1,4 @@
-global rick
+global ascii_to_input
 extern input
 
 section .data
