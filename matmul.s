@@ -19,7 +19,7 @@ layer2_weights:
 
 section .text
 forward_pass:
-    finit  ; init x87 FPU
+    finit
 
     xor rcx, rcx
 .layer1_loop:
@@ -45,7 +45,6 @@ forward_pass:
     jmp .layer1_loop
 
 .layer2:
-    ; Forward Layer 2: output = matmul(hidden × W2)
     xor rcx, rcx         
 .layer2_loop:
     cmp rcx, 4
