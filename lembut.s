@@ -122,6 +122,12 @@ exp_approx:
     fstp st0        ; bersihkan stack
     fstp st0
     fstp st0
+; Optional debug print softmax vector (16 byte float)
+    mov rax, 1
+    mov rdi, 1
+    lea rsi, [softmax]
+    mov rdx, 16
+    syscall
     ret
 
 section .data
