@@ -1,4 +1,4 @@
-global ayes
+global forward_pass
 global output
 global input
 
