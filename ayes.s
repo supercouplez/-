@@ -1,6 +1,6 @@
 global _start
-extern forward_pass
-extern softmax_pass
+extern lembut
+extern ayes
 extern ascii_to_input
 
 section .text
