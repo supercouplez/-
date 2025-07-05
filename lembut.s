@@ -103,8 +103,6 @@ softmax_pass:
     syscall
     ret
 
-; ========== Approximate exp(x) ========== 
-; exp(x) ≈ 1 + x + x²/2 + x³/6
 exp_approx:
     fld st0            ; x
     fld st0            ; x, x
