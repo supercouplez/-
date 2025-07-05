@@ -1,12 +1,10 @@
 global forward_pass
-global output
-global input
+
+extern input
+extern hidden
+extern output
 
 section .data
-input:     dd 2.0, 1.0, 0.0, 3.0
-hidden:    times 4 dd 0.0
-output:    times 4 dd 0.0
-
 layer1_weights:
     dd 1.0, 0.0, 0.0, 0.0
     dd 0.0, 1.0, 0.0, 0.0
@@ -22,7 +20,6 @@ layer2_weights:
 section .text
 forward_pass:
     finit
-
     xor rcx, rcx
 .layer1_loop:
     cmp rcx, 4
@@ -38,11 +35,9 @@ forward_pass:
 
     mov rax, rcx
     shl rax, 4
-
     mov rbx, rdx
     shl rbx, 2
-
-    add rax, rbx      
+    add rax, rbx
     fld dword [layer1_weights + rax]
 
     fmul
@@ -71,10 +66,8 @@ forward_pass:
 
     mov rax, rcx
     shl rax, 4
-
     mov rbx, rdx
     shl rbx, 2
-
     add rax, rbx
     fld dword [layer2_weights + rax]
 
@@ -88,4 +81,4 @@ forward_pass:
     inc rcx
     jmp .layer2_loop
 .done:
-ret
+    ret
