@@ -76,3 +76,20 @@ forward_pass:
     mov rcx, 0
 .print_loop:
     cmp rcx, 4
+    jge .done
+
+    fld dword [output + rcx*4]
+    sub rsp, 32
+    fistp qword [rsp]
+    mov rsi, rsp
+    mov rdi, 1
+    mov rdx, 4
+    mov rax, 1
+    syscall
+    add rsp, 32
+
+    inc rcx
+    jmp .print_loop
+
+.done:
+    ret
