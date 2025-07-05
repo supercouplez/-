@@ -88,12 +88,6 @@ softmax_pass:
     jmp .argmax_loop
 
 .print_token:
-    ; (Optional) print softmax vector
-    ; mov rax, 1
-    ; mov rdi, 1
-    ; lea rsi, [softmax]
-    ; mov rdx, 16
-    ; syscall
 
     mov rax, 1
     mov rdi, 1
