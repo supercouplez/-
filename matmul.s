@@ -34,7 +34,6 @@ forward_pass:
 
     fld dword [input + rdx*4]
 
-    ; FIX dua register: gunakan LEA
     lea rax, [rcx*16 + rdx*4]
     fld dword [layer1_weights + rax]
 
