@@ -3,22 +3,22 @@ extern input
 
 section .text
 ascii_to_input:
+    
+    mov     rax, 0          
+    mov     rdi, 0          
+    mov     rsi, input_buffer
+    mov     rdx, 4          
 
-    mov rax, 0
-    mov rdi, 0
-    mov rsi, input_buffer
-    mov rdx, 4          
-
-    mov rcx, 0
+    xor     rcx, rcx
 .convert_loop:
-    cmp rcx, 4
-    jge .done
+    cmp     rcx, 4
+    jge     .done
 
-    movzx eax, byte [input_buffer + rcx] 
+    movzx   eax, byte [input_buffer + rcx] 
     cvtsi2ss xmm0, eax                   
-    movss [input + rcx*4], xmm0          
-    inc rcx
-    jmp .convert_loop
+    movss   [input + rcx*4], xmm0          
+    inc     rcx
+    jmp     .convert_loop
 
 .done:
     ret
